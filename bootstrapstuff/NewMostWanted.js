@@ -79,6 +79,19 @@ function mainMenu(person, people)
   {
     case "info":
     // TODO: get person's info
+      //document.getElementById('allpeopledisplay').appendChild(list);
+
+      //first clear all the items previousl printed
+      document.getElementById('showpeopledetails').innerHTML = "";
+
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode("Information about Person :"));
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode( person.firstName + " " + person.lastName ));
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.gender));
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.dob));
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.height));
+      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.weight));
+      
+
     break;
     case "family":
     // TODO: get person's family
