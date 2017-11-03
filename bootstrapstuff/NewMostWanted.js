@@ -202,6 +202,14 @@ function searchByTrait(people)
     break;
   case 'gender':
     var getGender = filterByGender(people);
+    if(getGender.length > 0)
+    {
+      alert("we found " + getGender.length + "people with the gender you entered");
+    }
+    else
+    {
+      alert("we did not find anyone with that gender");
+    }    
     break;
   case 'weight':
      var getWeight = filterByWeight(people);  
@@ -267,6 +275,27 @@ function searchByTrait(people)
   }
   //filterByGender(people)
 
+  function filterByGender(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var genderSearch = promptFor("Enter the gender",chars);
+
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleGenderCollection = people.filter(checkGender);
+
+      //check age and return the person
+      function checkGender(person)
+      {
+        var Gender = person.gender;
+        if(Gender == genderSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleGenderCollection;
+  }
   //filterByWeight
 
 
