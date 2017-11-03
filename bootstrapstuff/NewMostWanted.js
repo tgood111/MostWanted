@@ -167,20 +167,7 @@ function searchByName(people)
   mainMenu(person, people);
 }
 
-function filterByEyeColor(people)
-{
-  var userInput = prompt("Do you know person's eyecolor?"); 
-if(userInput == "yes"){
-   var height = prompt("what is the person's eyecolor?");
-   var eyeColor = prompt("what is the person's eyecolor?");
 
-var filteredPeople = people.filter(function(element){
-    var elementeyecolor = element.eyecolor;
-    if(elementEyeColor === eyecolor){
-           var elementEyeColor = element.eyeColor;
-  if(elementEyeColor === eyeColor){
-    return true;
-  }
 
 function searchByTrait(people)
 {
@@ -191,6 +178,14 @@ function searchByTrait(people)
   {
     case 'age':
     var getAges = filterByAge(people);
+    if(getAges.length > 0)
+    {
+      alert("we found " + getAges.length + "people with the age you entered");
+    }
+    else
+    {
+      alert("we did not find anyone with that age");
+    }
     break;
     case 'no':
       searchByPreference(people);
@@ -206,6 +201,45 @@ function searchByTrait(people)
   default:
     app(people);
   }
+
+  //filterByAge(people)
+
+  function filterByAge(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var ageSearch = promptFor("Enter the age",chars);
+
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleAgeCollection = people.filter(checkAge);
+
+      //check age and return the person
+      function checkAge(person)
+      {
+        var age = ageGet(person.dob);
+        if(age == ageSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleAgeCollection;
+  }
+
+
+
+  //function that will return the age based on the individuals date of birth
+  function ageGet(dateString)
+  {
+    return new Date().getFullYear() - new Date(dateString).getFullYear()
+  }
+
+  //filterByHeight(people)
+
+  //filterByGender(people)
+
+  //filterByWeight
+
 
   /*
   existing code stuff
@@ -336,3 +370,12 @@ function chars(input)
 {
   return true; // default validation only
 }
+
+
+/*
+
+https://www.w3schools.com/jsref/jsref_map.asp
+
+https://www.w3schools.com/jsref/jsref_filter.asp
+
+*/
