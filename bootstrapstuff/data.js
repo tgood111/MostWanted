@@ -10,7 +10,7 @@ const data = [
 		"weight": 175,
 		"eyeColor": "brown",
 		"occupation": "programmer",
-		"parents": [],
+		"parents": [409574486, 260451248],
 		"currentSpouse": 401222887
 	},
 	{

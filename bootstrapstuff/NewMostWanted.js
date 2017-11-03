@@ -62,6 +62,48 @@ function listofallpeople()
           document.getElementById('allpeopledisplay').appendChild(list);
 }
 
+//function that shows people details
+//showpeopledetails
+function showpeopledetails(person)
+{
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Information about Person :"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode( person.firstName + " " + person.lastName ));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.gender));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.dob));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.height));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.weight));
+}
+
+//show family of person
+function showpersonfamily(person)
+{
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Family of Person :"));
+  //get parents
+  var parentlist = person.parents;
+  if(parentlist.length > 0)
+  {
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("First Parent"+parentlist[0]));
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Second Parent"+parentlist[1]));
+    
+  }
+  else
+  {
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("This person has no parents"));
+  }
+
+  //get spouse
+  var spouselist = person.currentSpouse;
+  if(spouselist == null)
+  {
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("This person has no spouse"));
+  }
+  else
+  {
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Spouse is " + spouselist));
+  }
+
+}
+
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people)
 {
@@ -84,17 +126,14 @@ function mainMenu(person, people)
       //first clear all the items previousl printed
       document.getElementById('showpeopledetails').innerHTML = "";
 
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode("Information about Person :"));
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode( person.firstName + " " + person.lastName ));
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.gender));
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.dob));
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.height));
-      document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.weight));
-      
+      showpeopledetails(person); 
 
     break;
     case "family":
     // TODO: get person's family
+
+    document.getElementById('showpeopledetails').innerHTML = "";
+      showpersonfamily(person);
     break;
     case "descendants":
     // TODO: get person's descendants
