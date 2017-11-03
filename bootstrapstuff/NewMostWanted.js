@@ -191,6 +191,14 @@ function searchByTrait(people)
       searchByPreference(people);
   case 'height':
     var getHeight = filterByHeight(people);
+    if(getHeight.length > 0)
+    {
+      alert("we found " + getHeight.length + "people with the height you entered");
+    }
+    else
+    {
+      alert("we did not find anyone with that height");
+    }
     break;
   case 'gender':
     var getGender = filterByGender(people);
@@ -236,6 +244,27 @@ function searchByTrait(people)
 
   //filterByHeight(people)
 
+  function filterByHeight(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var heightSearch = promptFor("Enter the height",chars);
+
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleHeightCollection = people.filter(checkHeight);
+
+      //check age and return the person
+      function checkHeight(person)
+      {
+        var Height = person.height;
+        if(Height == heightSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleHeightCollection;
+  }
   //filterByGender(people)
 
   //filterByWeight
