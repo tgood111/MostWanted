@@ -104,7 +104,7 @@ function showpersonfamily(person)
 
 }
 
-// Menu function to call once you find who you are looking for
+// Menu function to call once you find who you are lo oking for
 function mainMenu(person, people)
 {
 
@@ -216,13 +216,18 @@ function getDescendants(person, people)
 			}
 		}
 		
-	}
+	}//end of people loop
   for(var i = 0; i < descendants.length; ++i) 
   {
 		displayPerson(descendants[i]);
-	}
+  }//end of descendants loop
+  
+  if(descendants.length == 0)
+  {
+    alert("this person has no descendants");
+  }
 	mainMenu(person, people)
-}
+}//end of getDescendants
 
 // function that prompts and validates user input
 function promptFor(question, valid)
