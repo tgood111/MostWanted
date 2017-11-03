@@ -172,7 +172,7 @@ function searchByName(people)
 function searchByTrait(people)
 {
 
-  var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+  var traitToSearch = promptFor("What is the trait you want to search for - age or eyecolor or height or gender or weight?", chars);
 
   switch(traitToSearch)
   {
@@ -187,8 +187,6 @@ function searchByTrait(people)
       alert("we did not find anyone with that age");
     }
     break;
-    case 'no':
-      searchByPreference(people);
   case 'height':
     var getHeight = filterByHeight(people);
     if(getHeight.length > 0)
@@ -219,9 +217,20 @@ function searchByTrait(people)
      }
      else
      {
-       alert("we did not find anyone with that height");
+       alert("we did not find anyone with that weight");
      }
     break;
+    case 'eyecolor':
+    var getColor = filterByColor(people);  
+    if(getColor.length > 0)
+    {
+      alert("we found " + getColor.length + "people with the eye color you entered");
+    }
+    else
+    {
+      alert("we did not find anyone with that eye color");
+    }
+   break;
   default:
     app(people);
   }
@@ -327,6 +336,31 @@ function searchByTrait(people)
 
       return peopleWeightCollection;
   }
+
+  //filterByColor
+
+  function filterByColor(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var colorSearch = promptFor("Enter the color",chars);
+
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleColorCollection = people.filter(checkColor);
+
+      //check age and return the person
+      function checkColor(person)
+      {
+        var Color = person.eyeColor;
+        if(Color == colorSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleColorCollection;
+  }
+
   /*
   existing code stuff
   case 'age':
