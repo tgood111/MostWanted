@@ -167,9 +167,95 @@ function searchByName(people)
   mainMenu(person, people);
 }
 
+function filterByEyeColor(people)
+{
+  var userInput = prompt("Do you know person's eyecolor?"); 
+if(userInput == "yes"){
+   var height = prompt("what is the person's eyecolor?");
+   var eyeColor = prompt("what is the person's eyecolor?");
+
+var filteredPeople = people.filter(function(element){
+    var elementeyecolor = element.eyecolor;
+    if(elementEyeColor === eyecolor){
+           var elementEyeColor = element.eyeColor;
+  if(elementEyeColor === eyeColor){
+    return true;
+  }
+
 function searchByTrait(people)
 {
 
+  var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+
+  switch(traitToSearch)
+  {
+    case 'age':
+    var getAges = filterByAge(people);
+    break;
+    case 'no':
+      searchByPreference(people);
+  case 'height':
+    var getHeight = filterByHeight(people);
+    break;
+  case 'gender':
+    var getGender = filterByGender(people);
+    break;
+  case 'weight':
+     var getWeight = filterByWeight(people);  
+    break;
+  default:
+    app(people);
+  }
+
+  /*
+  existing code stuff
+  case 'age':
+        var getAges = filterByAge(people);
+        break;
+ -    case 'no':
+ -      searchByPreference(people);
+ +    case 'height':
+ +      var getHeight = filterByHeight(people);
+ +      break;
+ +    case 'gender':
+ +      var getGender = filterByGender(people);
+ +      break;
+ +    case 'weight':
+ +      var getWeight = filterByWeight(people);  
+        break;
+      default:
+        app(people);
+
+
+ function filterByEyeColor(people){
+        var userInput = prompt("Do you know person's eyecolor?"); 
+    if(userInput == "yes"){
+ -    var height = prompt("what is the person's eyecolor?");
+ +    var eyeColor = prompt("what is the person's eyecolor?");
+     
+      var filteredPeople = people.filter(function(element){
+ -      var elementeyecolor = element.eyecolor;
+ -      if(elementEyeColor === eyecolor){
+ +      var elementEyeColor = element.eyeColor;
+ +      if(elementEyeColor === eyeColor){
+          return true;
+        }
+      });
+      
+      
+code for filter by age:  function filterByAge(people){
+ -  var userInput = prompt("Do you know person's age?");
+ +  var userInput = prompt("Do you know person's age?"); 
+    if(userInput == "yes"){
+      var age = prompt("what is the person's age?");
+ -    var filteredPeople = people.filter(element){
+ -      if(element.dob === age){
+ +   
+ +    var filteredPeople = people.filter(function(element){
+ +      var elementAge = getPersonAge(element);
+ +      if(elementAge === age){
+          return true;
+  */
 }
 
 // alerts a list of people
