@@ -3,9 +3,16 @@ Build all of your functions for displaying and gathering information below (GUI)
 */
 
 // app is the function called to start the entire application
-function app(people) {
+function app(people) 
+{
+
+  //getting the list of all people
+  var people = data;
+
+
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  switch(searchType){
+  switch(searchType)
+  {
     case 'yes':
 	    // TODO: search by name
 	    searchByName(people);
@@ -20,8 +27,44 @@ function app(people) {
   }
 }
 
+//function that will automatically show the entire list of people
+
+function listofallpeople()
+{
+  var people = data;
+
+      // Create the list element:
+      var list = document.createElement('ul');
+      
+          for(var i = 0; i < people.length; i++) 
+          {
+              // Create the list item:
+              var item = document.createElement('li');
+      
+              // Set its contents:
+              //item.appendChild(document.createTextNode(people[i]));
+              item.appendChild(document.createTextNode(i));
+              item.appendChild(document.createTextNode("    "));
+              item.appendChild(document.createTextNode(people[i].firstName));
+              item.appendChild(document.createTextNode("    "));
+              item.appendChild(document.createTextNode(people[i].lastName));
+      
+              // Add it to the list:
+              list.appendChild(item);
+          }
+      
+          // Finally, return the constructed list:
+          //return list;
+
+          //alright list is ready. put it in the div.
+          //$("#target").append("<ul id='list'></ul>");
+          //document.getElementById('foo').appendChild(makeUL(options[0]));
+          document.getElementById('allpeopledisplay').appendChild(list);
+}
+
 // Menu function to call once you find who you are looking for
-function mainMenu(person, people){
+function mainMenu(person, people)
+{
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
@@ -32,7 +75,8 @@ function mainMenu(person, people){
 
   var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
-  switch(displayOption){
+  switch(displayOption)
+  {
     case "info":
     // TODO: get person's info
     break;
@@ -53,14 +97,17 @@ function mainMenu(person, people){
   }
 }
 
-function searchByName(people){
+function searchByName(people)
+{
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
   var person = null;
   // TODO: find the person using the name they entered
 
-  for(var i = 0; i < people.length; ++i) {
-  	if( firstName.toLowerCase() == people[i].firstName.toLowerCase() && lastName.toLowerCase() == people[i].lastName.toLowerCase() ) {
+  for(var i = 0; i < people.length; ++i) 
+  {
+    if( firstName.toLowerCase() == people[i].firstName.toLowerCase() && lastName.toLowerCase() == people[i].lastName.toLowerCase() ) 
+    {
   		person = people[i];
   		break;
   	}
@@ -68,18 +115,22 @@ function searchByName(people){
   mainMenu(person, people);
 }
 
-function searchByTrait(people){
+function searchByTrait(people)
+{
 
 }
 
 // alerts a list of people
-function displayPeople(people){
-  alert(people.map(function(person){
+function displayPeople(people)
+{
+  alert(people.map(function(person)
+  {
     return person.firstName + " " + person.lastName;
   }).join("\n"));
 }
 
-function displayPerson(person){
+function displayPerson(person)
+{
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
@@ -88,20 +139,25 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function getDescendants(person, people) {
+function getDescendants(person, people) 
+{
 	var elders = [person.id];
 	var descendants = [];
 	console.log(people.length);
-	for(var i = 0; i < people.length; ++i) {
+  for(var i = 0; i < people.length; ++i) 
+  {
 		console.log(people[i].id);
-		if(person.id == people[i].id) {
+    if(person.id == people[i].id) 
+    {
 			console.log("We continued");
 			continue;
 		}
 
-		for(var j = 0; j < people[i].parents.length; ++j) {
+    for(var j = 0; j < people[i].parents.length; ++j) 
+    {
 			console.log(people[i].parents[j]);
-			if(elders.indexOf(people[i].parents[j]) >= 0) {
+      if(elders.indexOf(people[i].parents[j]) >= 0) 
+      {
 				elders.push(people[i].parents[j]);
 				descendants.push(people[i]);
 				break;
@@ -109,26 +165,31 @@ function getDescendants(person, people) {
 		}
 		
 	}
-	for(var i = 0; i < descendants.length; ++i) {
+  for(var i = 0; i < descendants.length; ++i) 
+  {
 		displayPerson(descendants[i]);
 	}
 	mainMenu(person, people)
 }
 
 // function that prompts and validates user input
-function promptFor(question, valid){
-  do{
+function promptFor(question, valid)
+{
+  do
+  {
     var response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
 }
 
 // helper function to pass into promptFor to validate yes/no answers
-function yesNo(input){
+function yesNo(input)
+{
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
 // helper function to pass in as default promptFor validation
-function chars(input){
+function chars(input)
+{
   return true; // default validation only
 }
