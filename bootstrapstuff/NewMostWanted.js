@@ -213,6 +213,14 @@ function searchByTrait(people)
     break;
   case 'weight':
      var getWeight = filterByWeight(people);  
+     if(getWeight.length > 0)
+     {
+       alert("we found " + getWeight.length + "people with the weight you entered");
+     }
+     else
+     {
+       alert("we did not find anyone with that height");
+     }
     break;
   default:
     app(people);
@@ -298,7 +306,27 @@ function searchByTrait(people)
   }
   //filterByWeight
 
+  function filterByWeight(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var weightSearch = promptFor("Enter the weight",chars);
 
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleWeightCollection = people.filter(checkWeight);
+
+      //check age and return the person
+      function checkWeight(person)
+      {
+        var Weight = person.weight;
+        if(Weight == weightSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleWeightCollection;
+  }
   /*
   existing code stuff
   case 'age':
