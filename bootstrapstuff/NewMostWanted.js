@@ -66,29 +66,59 @@ function listofallpeople()
 //showpeopledetails
 function showpeopledetails(person)
 {
+  //code for breakline
+  linebreak = document.createElement("br");
+  //queryForm.appendChild(linebreak);
+
   document.getElementById('showpeopledetails').appendChild(document.createTextNode("Information about Person :"));
-  document.getElementById('showpeopledetails').appendChild(document.createTextNode( person.firstName + " " + person.lastName ));
-  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.gender));
-  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.dob));
-  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.height));
-  document.getElementById('showpeopledetails').appendChild(document.createTextNode(person.weight));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Full Name" + person.firstName + " " + person.lastName ));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Gender " + person.gender));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  var age = ageGet(person.dob);
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Age " + age));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Height " + person.height));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Weight " + person.weight));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Eye Color " + person.eyeColor));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+  document.getElementById('showpeopledetails').appendChild(document.createTextNode("Occupation " + person.occupation));
 }
+
+//function that will calculate age
+  //function that will return the age based on the individuals date of birth
+  function ageGet(dateString)
+  {
+    return new Date().getFullYear() - new Date(dateString).getFullYear()
+  }
 
 //show family of person
 function showpersonfamily(person)
 {
   document.getElementById('showpeopledetails').appendChild(document.createTextNode("Family of Person :"));
+  document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
   //get parents
   var parentlist = person.parents;
   if(parentlist.length > 0)
   {
-    document.getElementById('showpeopledetails').appendChild(document.createTextNode("First Parent"+parentlist[0]));
-    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Second Parent"+parentlist[1]));
+    //document.getElementById('showpeopledetails').appendChild(document.createTextNode("First Parent "+parentlist[0]));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+    var name = personIdToName(parentlist[0]);
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("First Parent "+name.firstName + " " + name.lastName));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
+    //document.getElementById('showpeopledetails').appendChild(document.createTextNode("Second Parent"+parentlist[1]));
+    var name = personIdToName(parentlist[1]);
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Second Parent "+name.firstName + " " + name.lastName));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
     
   }
   else
   {
     document.getElementById('showpeopledetails').appendChild(document.createTextNode("This person has no parents"));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
   }
 
   //get spouse
@@ -96,12 +126,34 @@ function showpersonfamily(person)
   if(spouselist == null)
   {
     document.getElementById('showpeopledetails').appendChild(document.createTextNode("This person has no spouse"));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
   }
   else
   {
-    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Spouse is " + spouselist));
+    //document.getElementById('showpeopledetails').appendChild(document.createTextNode("Spouse is " + spouselist));
+    var name = personIdToName(spouselist);
+    document.getElementById('showpeopledetails').appendChild(document.createTextNode("Spouse is "+name.firstName + " " + name.lastName));
+    document.getElementById('showpeopledetails').appendChild(document.createElement("br"));
   }
 
+}
+
+//function that gives the name of the person based on id
+function personIdToName(personid)
+{
+  //get the list of all peoploe
+  var people = data;
+
+  //loop through the list
+  for(var i = 0; i < people.length; i++)
+  {
+    //if that person is found
+    //return that person
+    if(personid ==  people[i].id)
+    {
+      return people[i];
+    }
+  }
 }
 
 // Menu function to call once you find who you are lo oking for
@@ -167,17 +219,52 @@ function searchByName(people)
   mainMenu(person, people);
 }
 
+//display a list of people
+//this one specifically created for filtered list
+function displayFilteredList(peopleListFiltered)
+{
+  var people = peopleListFiltered;
+  
+        // Create the list element:
+        var list = document.createElement('ul');
+        
+            for(var i = 0; i < people.length; i++) 
+            {
+                // Create the list item:
+                var item = document.createElement('li');
+        
+                // Set its contents:
+                //item.appendChild(document.createTextNode(people[i]));
+                item.appendChild(document.createTextNode(i));
+                item.appendChild(document.createTextNode("    "));
+                item.appendChild(document.createTextNode(people[i].firstName));
+                item.appendChild(document.createTextNode("    "));
+                item.appendChild(document.createTextNode(people[i].lastName));
+        
+                // Add it to the list:
+                list.appendChild(item);
+            }
+        
+            // Finally, return the constructed list:
+            //return list;
+  
+            //alright list is ready. put it in the div.
+            //$("#target").append("<ul id='list'></ul>");
+            //document.getElementById('foo').appendChild(makeUL(options[0]));
+            document.getElementById('peopleListFiltered').appendChild(list);
+}
 
 
 function searchByTrait(people)
 {
 
-  var traitToSearch = promptFor("What is the trait you want to search for - age or eyecolor or height or gender or weight?", chars);
+  var traitToSearch = promptFor("What is the trait you want to search for - age or eyecolor or height or gender or weight or occupation?", chars);
 
   switch(traitToSearch)
   {
     case 'age':
     var getAges = filterByAge(people);
+    peopleListFiltered = getAges;
     if(getAges.length > 0)
     {
       alert("we found " + getAges.length + "people with the age you entered");
@@ -186,9 +273,11 @@ function searchByTrait(people)
     {
       alert("we did not find anyone with that age");
     }
+    displayFilteredList(peopleListFiltered);
     break;
   case 'height':
     var getHeight = filterByHeight(people);
+    peopleListFiltered = getHeight;
     if(getHeight.length > 0)
     {
       alert("we found " + getHeight.length + "people with the height you entered");
@@ -197,9 +286,11 @@ function searchByTrait(people)
     {
       alert("we did not find anyone with that height");
     }
+    displayFilteredList(peopleListFiltered);
     break;
   case 'gender':
     var getGender = filterByGender(people);
+    peopleListFiltered = getGender;
     if(getGender.length > 0)
     {
       alert("we found " + getGender.length + "people with the gender you entered");
@@ -208,9 +299,11 @@ function searchByTrait(people)
     {
       alert("we did not find anyone with that gender");
     }    
+    displayFilteredList(peopleListFiltered);
     break;
   case 'weight':
      var getWeight = filterByWeight(people);  
+     peopleListFiltered = getWeight;
      if(getWeight.length > 0)
      {
        alert("we found " + getWeight.length + "people with the weight you entered");
@@ -219,9 +312,11 @@ function searchByTrait(people)
      {
        alert("we did not find anyone with that weight");
      }
+     displayFilteredList(peopleListFiltered);
     break;
     case 'eyecolor':
     var getColor = filterByColor(people);  
+    peopleListFiltered = getColor;
     if(getColor.length > 0)
     {
       alert("we found " + getColor.length + "people with the eye color you entered");
@@ -230,7 +325,21 @@ function searchByTrait(people)
     {
       alert("we did not find anyone with that eye color");
     }
+    displayFilteredList(peopleListFiltered);
    break;
+   //occupation
+   case 'occupation':
+   var getOcu = filterByOcu(people);  
+   if(getOcu.length > 0)
+   {
+     alert("we found " + getOcu.length + "people with the occupation you entered");
+   }
+   else
+   {
+     alert("we did not find anyone with that occupation");
+   }
+   displayFilteredList(peopleListFiltered);
+  break;
   default:
     app(people);
   }
@@ -359,6 +468,30 @@ function searchByTrait(people)
       }//end of function checkAge
 
       return peopleColorCollection;
+  }
+
+  //filterByOcu
+
+  function filterByOcu(people)
+  {
+    //var traitToSearch = promptFor("What is the trait you want to search for - age or no or height or gender or weight?", chars);
+    var ocuSearch = promptFor("Enter the occupation",chars);
+
+    //ages.filter(checkAdult);
+    //using the filter function
+    var peopleOcuCollection = people.filter(checkOcu);
+
+      //check age and return the person
+      function checkOcu(person)
+      {
+        var Ocu = person.occupation;
+        if(Ocu == ocuSearch)
+        {
+          return person;
+        }
+      }//end of function checkAge
+
+      return peopleOcuCollection;
   }
 
   /*
